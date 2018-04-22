@@ -1,34 +1,33 @@
 package zulqarnain.suuet.acadmy.com.bloodcolaboration
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import zulqarnain.suuet.acadmy.com.bloodcolaboration.ui.FeedFragement
+import zulqarnain.suuet.acadmy.com.bloodcolaboration.ui.RequestFragement
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+
+    var fragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
-        val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
-
         nav_view.setNavigationItemSelectedListener(this)
+
+        if (fragment == null) {
+            fragment = FeedFragement.newInstance();
+            supportFragmentManager.beginTransaction().add(R.id.admin_fragment_container, fragment).commit()
+
+        }
     }
 
     override fun onBackPressed() {
@@ -46,9 +45,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         when (item.itemId) {
             R.id.action_settings -> return true
             else -> return super.onOptionsItemSelected(item)
@@ -56,27 +53,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
+
+            R.id.nav_home -> {
+                fragment = FeedFragement.newInstance()
 
             }
-            R.id.nav_slideshow -> {
+            R.id.nav_request -> {
+                fragment = RequestFragement.newInstance()
 
             }
-            R.id.nav_manage -> {
 
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
         }
+        if (fragment != null)
+            supportFragmentManager.beginTransaction().replace(R.id.admin_fragment_container, fragment).commit()
+
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
