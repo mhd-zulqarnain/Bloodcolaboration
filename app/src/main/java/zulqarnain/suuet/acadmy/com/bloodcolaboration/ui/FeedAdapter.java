@@ -36,7 +36,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -45,6 +45,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
         TextView txt_urgency;
         TextView txt_contact;
         TextView txt_addtional;
+        TextView txt_volanteer;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -53,12 +54,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
             txt_urgency = itemView.findViewById(R.id.txt_urgency);
             txt_contact = itemView.findViewById(R.id.txt_contact);
             txt_addtional = itemView.findViewById(R.id.txt_addtional);
+            txt_volanteer = itemView.findViewById(R.id.txt_volanteer);
         }
         public void bindView(final BloodRequest request) {
             txt_bottle.setText(request.getEd_num_unit()+" units of "+request.getSpinner_blood_group()+" required");
             txt_urgency.setText("Urgency: "+request.getSpinner_urgency());
             txt_contact.setText("Contact at: "+request.getEd_contact());
             txt_addtional.setText("Additional instruction: "+request.getEd_contact());
+            txt_volanteer.setText("Volanteer till now : ");
         }
     }
 }
